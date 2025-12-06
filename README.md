@@ -6,6 +6,6 @@
 
 ----
 
-(Price)[https://t.me/+jR5OIkbxa1M3NjEy]
-(Telegram Bot)[https://t.me/Celestial_Court_bot]
-(Telegram adapter)[https://t.me/adapterofpod]
+[Price](https://t.me/+jR5OIkbxa1M3NjEy)
+[Telegram Bot](https://t.me/Celestial_Court_bot)
+[Telegram adapter](https://t.me/adapterofpod)
