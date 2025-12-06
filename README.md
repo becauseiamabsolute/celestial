@@ -1,2 +1,11 @@
-# celestial
-Digital version
+## OSINT PROJECT
+----
+### WEB ADAPTER
+
+Суть проекта - в тотальной ликвидации личностей которые не имеют право на жизнь, с целью защитить невинных людей и младшее поколение. 
+
+----
+
+(Price)[https://t.me/+jR5OIkbxa1M3NjEy]
+(Telegram Bot)[https://t.me/Celestial_Court_bot]
+(Telegram adapter)[https://t.me/adapterofpod]
