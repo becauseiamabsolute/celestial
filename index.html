@@ -37,6 +37,12 @@
             }
         }
 
+        @keyframes Tr-logo-start {
+            0% {
+                transform: translateY(100%);
+            }
+        }
+
         [data-theme="dark"] {
             --bg-color: linear-gradient(180deg, #1a1a1a, #000);
             --text-color: #ffffff;
@@ -120,6 +126,7 @@
                 text-align: center;
                 max-width: 20vw;
                 filter:var(--filter-contr-img);
+                animation: Tr-logo-start 1.75s cubic-bezier(0.215, 0.610, 0.355, 1);
             }
         }
 
