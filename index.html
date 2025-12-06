@@ -22,6 +22,20 @@
             font-weight: 900;
         }
 
+        @keyframes H1-start {
+            0% {
+                opacity: .5;
+                transform: translateY(-100%);
+            }
+        }
+
+        @keyframes H1-before-start {
+            0% {
+                opacity: 0;
+                width: 0%;
+            }
+        }
+
         [data-theme="dark"] {
             --bg-color: linear-gradient(180deg, #1a1a1a, #000);
             --text-color: #ffffff;
@@ -94,6 +108,7 @@
             position: relative;
             width: max-content;
             margin: 0 auto;
+            animation: H1-start 1s;
 
             &::before {
                 content: "";
@@ -104,6 +119,7 @@
                 width: 100%;
                 background: linear-gradient(90deg, #1a1a1a, #fff);
                 border-radius: 10px;
+                animation: H1-before-start 1.5s ease-in-out;
             }
         }
 
