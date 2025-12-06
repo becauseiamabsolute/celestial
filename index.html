@@ -91,12 +91,30 @@
 
         h1 {
             margin-bottom: 1rem;
+            position: relative;
+            width: max-content;
+            margin: 0 auto;
+
+            &::before {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                height: 4px;
+                width: 100%;
+                background: linear-gradient(90deg, #1a1a1a, #fff);
+                border-radius: 10px;
+            }
         }
 
 
     @media (max-width: 768px) {
         .theme-toggle {
             scale: 0.75;
+        }
+
+        .content {
+            font-size: calc(1.2em + 1.3vw);
         }
     }
     </style>
