@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поднебесный суд | Adapter</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --button-bg: #f0f0f0;
+            --button-hover: #e0e0e0;
+            --icon-color: #666666;
+            --border-radius: 50%;
+            --BOX-SH: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: linear-gradient(180deg, #1a1a1a, #000);
+            --text-color: #ffffff;
+            --button-bg: #333333;
+            --button-hover: #444444;
+            --icon-color: #cccccc;
+            --BOX-SH: 0 4px 12px rgba(0, 0, 0, 0.3), inset 4px 4px 12px rgba(0, 0, 0, 0.45), inset -4px -4px 14px rgba(255, 255, 255, 0.15);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border: none;
+            background: var(--button-bg);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--BOX-SH);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .theme-toggle:hover {
+            background: var(--button-hover);
+            transform: scale(1.1);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.98);
+        }
+
+        .theme-icon {
+            width: 28px;
+            height: 28px;
+            transition: opacity 0.3s ease;
+        }
+
+        .theme-icon.hidden {
+            opacity: 0;
+            position: absolute;
+        }
+
+        .content {
+            max-width: 800px;
+            margin-top: 80px;
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Сменить тему">
+
+        <img src="https://img.icons8.com/?size=100&id=EWXLJBR0k8Tm&format=png&color=000000" 
+             alt="Солнце" class="theme-icon" id="sunIcon">
+        
+        <img src="https://img.icons8.com/?size=100&id=54382&format=png&color=000000" 
+             alt="Луна" class="theme-icon hidden" id="moonIcon">
+    </button>
+
+    <div class="content">
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        
+        
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        
+        body.setAttribute('data-theme', savedTheme);
+        updateIcons(savedTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            
+            updateIcons(newTheme);
+        });
+        
+        function updateIcons(theme) {
+            if (theme === 'dark') {
+                
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.add('hidden');
+            }
+        }
+        
+        
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                body.setAttribute('data-theme', newTheme);
+                updateIcons(newTheme);
+            }
+        });
+    </script>
+</body>
+</html>
