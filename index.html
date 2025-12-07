@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Поднебесный суд | Adapter</title>
+    <link type="image/png" sizes="32x32" rel="icon" href="https://img.icons8.com/?size=100&id=33452&format=png&color=12B886">
     <style>
         :root {
             --bg-color: #ffffff;
@@ -251,6 +252,29 @@
             font-family: system-ui, sans-serif;
         }
 
+        footer {
+            position: static;
+            bottom: 0;
+            text-align: center;
+            align-items: center;
+            width: 100%;
+            margin: auto 0;
+
+            span {
+                letter-spacing: .05em;
+                transition: all .6s ease;
+
+                a {
+                    cursor: pointer;
+                    text-decoration: underline;
+                    color: var(--text-color);
+                    &:hover {
+                        color: grey;
+                    }
+                }
+            }
+        }
+
         /* МОБИЛЬНАЯ ОПТИМИЗАЦИЯ */
         @media (max-width: 768px) {
             .theme-toggle {
@@ -354,7 +378,7 @@
             </div>
         </a>
 
-        <a href="https://t.me/+jR5OIkbxa1M3NjEy" class="category">
+        <a href="/celestial/price/" class="category">
             <img src="https://img.icons8.com/?size=100&id=59840&format=png&color=1A1A1A" alt="" id="cat-3-1">
             <img src="https://img.icons8.com/?size=100&id=0yEwnTyyRi76&format=png&color=FFFFFF" alt="" id="cat-3-2">
             <div class="text-ctx"><h3>Prcie услуги</h3><p>Перед заказом всегда <br>уточняйте данные</p></div></a>
@@ -365,6 +389,10 @@
             <div class="text-ctx"><h3>Отзывы</h3><p>Мы предлагаем множество <br>гарантий в процессе сделки</p></div>
         </a>
     </div>
+
+    <footer>
+        <span>Поднебесный суд 2025 | <a href="/celestial/pr_p.pdf">Политика конфиденциальности</a> | <a href="/celestial/user_lic.pdf">Пользовательское соглашение</a> — <b>все права защищены</b></span>
+    </footer>
 
     <script>
         const themeToggle = document.getElementById('themeToggle');
