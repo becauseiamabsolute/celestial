@@ -259,7 +259,7 @@
     
             .ctx {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 1.75rem;
                 margin: 3rem auto;
             }
             
@@ -267,7 +267,10 @@
             .content { 
                 font-size: calc(1.2em + 1.3vw);
 
-
+                p {
+                    font-size: 1em;
+                    padding-top: .3vw;
+                }
              }
             
             .category {
@@ -284,10 +287,6 @@
 
         @media (max-width: 425px) {
 
-            .content img {
-                max-width: 10vw;
-            }
-
             .theme-toggle {
                 backdrop-filter: blur(20px);
                 background: rgba(255,255,255,0.1);
@@ -302,6 +301,12 @@
             .content img {
                 max-width: 40vw;
         }
+        }
+
+        @media (max-width:425px) {
+                        .content img {
+                max-width: 55vw;
+            }
         }
     </style>
 </head>
