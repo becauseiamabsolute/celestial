@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Услуги | Поднебесный суд</title>
-    <link type="icon/png" sizes="32x32" rel="icon" href="https://img.icons8.com/?size=100&id=33452&format=png&color=12B886">
+    <link type="icon/png" sizes="32x32" rel="icon" href="https://icons8.com/icon/33452/anonymous-mask">
     <style>
         :root {
             --bg-color: #ffffff;
@@ -75,9 +75,12 @@
             backdrop-filter: blur(20px);
         }
 
-        .theme-toggle:hover { 
-            background: var(--button-hover); 
-            transform: scale(1.05) rotate(5deg); 
+
+        @media (min-width: 769px) {
+            .theme-toggle:hover { 
+                background: var(--button-hover); 
+                transform: scale(1.05) rotate(5deg); 
+            }
         }
 
         .theme-icon {
@@ -153,6 +156,7 @@
             border-radius: 28px;
             padding: 3rem 2.5rem;
             box-shadow: var(--card-shadow);
+
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
             overflow: hidden;
@@ -169,16 +173,6 @@
             opacity: 0;
             transition: all 0.6s;
             z-index: 0;
-        }
-
-        .service-category:hover {
-            transform: translateY(-20px) scale(1.02);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
-        }
-
-        .service-category:hover::before {
-            left: 0;
-            opacity: 0.15;
         }
 
         .service-header {
@@ -215,12 +209,6 @@
         }
 
         .service-item:last-child { border-bottom: none; }
-
-        .service-item:hover {
-            padding-left: 1rem;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-        }
 
         .service-desc {
             flex: 1;
@@ -301,23 +289,78 @@
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
         }
 
-        .contact-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-        }
-
         @keyframes slideInUp {
             from { opacity: 0; transform: translateY(50px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @media (min-width: 769px) {
+            .service-category:hover {
+                transform: translateY(-20px) scale(1.02);
+                box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+            }
+
+            .service-category:hover::before {
+                left: 0;
+                opacity: 0.15;
+            }
+
+            .service-item:hover {
+                padding-left: 1rem;
+                background: rgba(255,255,255,0.05);
+                border-radius: 12px;
+            }
+
+            .contact-btn:hover {
+                background: rgba(255,255,255,0.3);
+                transform: translateY(-4px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            }
+        }
+
         @media (max-width: 768px) {
-            .theme-toggle { top: 15px; right: 15px; width: 52px; height: 52px; }
-            .services-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-            .contact-btn {letter-spacing: normal;}
-            .contact-buttons { flex-direction: column; align-items: center; width: 100%;}
+            .theme-toggle { 
+                top: 15px; 
+                right: 15px; 
+                width: 52px; 
+                height: 52px;
+            }
+            
+            .services-grid { 
+                grid-template-columns: 1fr; 
+                gap: 1.5rem; 
+            }
+            
+            .contact-btn { letter-spacing: normal; }
+            .contact-buttons { 
+                flex-direction: column; 
+                align-items: center; 
+                width: 100%;
+            }
+            
             body { padding: 1rem 0; }
+
+            .service-category,
+            .service-category::before,
+            .service-item,
+            .contact-btn,
+            .theme-toggle {
+                transition: none !important;
+            }
+
+            .service-category:hover,
+            .service-category:hover::before,
+            .service-item:hover,
+            .contact-btn:hover,
+            .theme-toggle:hover {
+                transform: none !important;
+                box-shadow: inherit !important;
+                left: inherit !important;
+                opacity: inherit !important;
+                padding: inherit !important;
+                background: inherit !important;
+                border-radius: inherit !important;
+            }
         }
     </style>
 </head>
@@ -392,7 +435,7 @@
     </section>
 
     <section class="contacts">
-        <h2 style="letter-spacing: .1em;"> Только предоплата</h2>
+        <h2 style="letter-spacing: .1em;">Только предоплата</h2>
         <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.95;">По всем вопросам заказа услуг</p>
         <div class="contact-buttons">
             <a href="https://t.me/Celestial_Court_bot" class="contact-btn" target="_blank">
