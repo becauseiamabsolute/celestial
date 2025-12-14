@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги | Поднебесный суд</title>
+    <link type="icon/png" sizes="32x32" rel="icon" href="https://icons8.com/icon/33452/anonymous-mask">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --button-bg: #f0f0f0;
+            --button-hover: #e0e0e0;
+            --icon-color: #666666;
+            --border-radius: 50%;
+            --BOX-SH: 0 12px 40px rgba(0, 0, 0, 0.15);
+            --filter-contr-img: contrast(0%);
+            --card-bg: rgba(255,255,255,0.95);
+            --card-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            --card-border: rgba(255,255,255,0.3);
+            --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --tg-gradient: linear-gradient(135deg, #0088cc 0%, #00aaff 100%);
+            --price-gradient: linear-gradient(135deg, #ff6b6b, #feca57);
+        }
+
+        @font-face {
+            font-family: "Sagewold";
+            src: url(/celestial/Sagewold-Regular.otf);
+            font-display: swap;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: linear-gradient(180deg, #1a1a1a, #000);
+            --text-color: #ffffff;
+            --button-bg: #333333;
+            --button-hover: #444444;
+            --icon-color: #cccccc;
+            --BOX-SH: 0 12px 40px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255,255,255,0.05);
+            --filter-contr-img: none;
+            --card-bg: rgba(30,30,30,0.95);
+            --card-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            --card-border: rgba(255,255,255,0.1);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --tg-gradient: linear-gradient(135deg, #0088cc 0%, #00b7ff 100%);
+            --price-gradient: linear-gradient(135deg, #ff4757, #ffa502);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Sagewold", system-ui, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border: none;
+            background: var(--button-bg);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--BOX-SH);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+        }
+
+        /* ДЕСКТОП HOVER для кнопки темы */
+        @media (min-width: 769px) {
+            .theme-toggle:hover { 
+                background: var(--button-hover); 
+                transform: scale(1.05) rotate(5deg); 
+            }
+        }
+
+        .theme-icon {
+            width: 24px;
+            height: 24px;
+            transition: opacity 0.3s ease;
+        }
+
+        .theme-icon.hidden { opacity: 0; position: absolute; }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(102,126,234,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(122,75,162,0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            z-index: 1;
+            position: relative;
+            animation: slideInUp 1.2s ease-out;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 400;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            font-family: system-ui, sans-serif;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .service-category {
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 3rem 2.5rem;
+            box-shadow: var(--card-shadow);
+            /* БАЗОВЫЙ transition только для десктопа */
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: all 0.6s;
+            z-index: 0;
+        }
+
+        .service-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            margin-right: 1.5rem;
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.2));
+            flex-shrink: 0;
+        }
+
+        .service-category h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 200;
+            margin: 0;
+        }
+
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-item:last-child { border-bottom: none; }
+
+        .service-desc {
+            flex: 1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-family: system-ui, sans-serif;
+        }
+
+        .service-price {
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: .1em;
+            background: var(--price-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            white-space: nowrap;
+        }
+
+        .contacts {
+            background: var(--tg-gradient);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 6rem 2rem;
+            border-radius: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contacts::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .contacts h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 2rem;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            text-decoration: none;
+            color: white;
+            font-weight: 100;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            letter-spacing: .1em;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ДЕСКТОП: ВКЛЮЧАЕМ АНИМАЦИИ (>768px) */
+        @media (min-width: 769px) {
+            .service-category:hover {
+                transform: translateY(-20px) scale(1.02);
+                box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+            }
+
+            .service-category:hover::before {
+                left: 0;
+                opacity: 0.15;
+            }
+
+            .service-item:hover {
+                padding-left: 1rem;
+                background: rgba(255,255,255,0.05);
+                border-radius: 12px;
+            }
+
+            .contact-btn:hover {
+                background: rgba(255,255,255,0.3);
+                transform: translateY(-4px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            }
+        }
+
+        /* МОБИЛЬНАЯ ВЕРСИЯ: ОТКЛЮЧАЕМ ВСЕ HOVER АНИМАЦИИ (≤768px) */
+        @media (max-width: 768px) {
+            .theme-toggle { 
+                top: 15px; 
+                right: 15px; 
+                width: 52px; 
+                height: 52px;
+            }
+            
+            .services-grid { 
+                grid-template-columns: 1fr; 
+                gap: 1.5rem; 
+            }
+            
+            .contact-btn { letter-spacing: normal; }
+            .contact-buttons { 
+                flex-direction: column; 
+                align-items: center; 
+                width: 100%;
+            }
+            
+            body { padding: 1rem 0; }
+
+            /* ✅ КРИТИЧНО: отключаем все анимации hover на мобилках */
+            .service-category,
+            .service-category::before,
+            .service-item,
+            .contact-btn,
+            .theme-toggle {
+                transition: none !important;
+            }
+
+            .service-category:hover,
+            .service-category:hover::before,
+            .service-item:hover,
+            .contact-btn:hover,
+            .theme-toggle:hover {
+                transform: none !important;
+                box-shadow: inherit !important;
+                left: inherit !important;
+                opacity: inherit !important;
+                padding: inherit !important;
+                background: inherit !important;
+                border-radius: inherit !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Сменить тему">
+        <img src="https://img.icons8.com/?size=100&id=EWXLJBR0k8Tm&format=png&color=000000" 
+             alt="Солнце" class="theme-icon" id="sunIcon">
+        <img src="https://img.icons8.com/?size=100&id=54382&format=png&color=000000" 
+             alt="Луна" class="theme-icon hidden" id="moonIcon">
+    </button>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Услуги</h1>
+            <p class="hero-subtitle">OSINT • HUMINT • Разведка • Анонимность</p>
+        </div>
+    </section>
+
+    <section class="services-grid">
+        <div class="service-category">
+            <div class="service-header">
+                <img src="https://img.icons8.com/?size=100&id=2957&format=png&color=22C3E6" alt="Досье" class="service-icon">
+                <h2>Досье и аналитика</h2>
+            </div>
+            <div class="service-item">
+                <div class="service-desc">Информационное досье<br><small>Сводка открытых данных для первоначальной оценки</small></div>
+                <div class="service-price">$4</div>
+            </div>
+            <div class="service-item">
+                <div class="service-desc">Оперативное досье<br><small>Проверенная информация с ручной обработкой</small></div>
+                <div class="service-price">$8</div>
+            </div>
+            <div class="service-item">
+                <div class="service-desc">Разведывательное досье<br><small>Глубокий анализ + социальная инженерия</small></div>
+                <div class="service-price">$10</div>
+            </div>
+        </div>
+
+        <div class="service-category">
+            <div class="service-header">
+                <img src="https://img.icons8.com/?size=100&id=40569&format=png&color=22C3E6" alt="Обучение" class="service-icon">
+                <h2>Обучение и ресурсы</h2>
+            </div>
+            <div class="service-item">
+                <div class="service-desc">Менторство OSINT<br><small>Индивидуальная программа обучения</small></div>
+                <div class="service-price">$35</div>
+            </div>
+            <div class="service-item">
+                <div class="service-desc">Архив (1 месяц)<br><small>Методички + закрытые материалы</small></div>
+                <div class="service-price">$2.5</div>
+            </div>
+            <div class="service-item">
+                <div class="service-desc">Архив (пожизненно)<br><small>Бессрочный доступ ко всему</small></div>
+                <div class="service-price">$5</div>
+            </div>
+        </div>
+
+        <div class="service-category">
+            <div class="service-header">
+                <img src="https://img.icons8.com/?size=100&id=33945&format=png&color=22C3E6" alt="Аудит" class="service-icon">
+                <h2>Специальные услуги</h2>
+            </div>
+            <div class="service-item">
+                <div class="service-desc">Аудит анонимности<br><small>Проверка + рекомендации по OPSEC</small></div>
+                <div class="service-price">$10</div>
+            </div>
+            <div class="service-item">
+                <div class="service-desc">Разбор кейса<br><small>Голосовой разбор вашей работы за 1 час</small></div>
+                <div class="service-price">$10</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contacts">
+        <h2 style="letter-spacing: .1em;">Только предоплата</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.95;">По всем вопросам заказа услуг</p>
+        <div class="contact-buttons">
+            <a href="https://t.me/Celestial_Court_bot" class="contact-btn" target="_blank">
+                <img src="https://img.icons8.com/?size=100&id=82790&format=png&color=ffffff" width="24" height="24">
+                @Celestial_Court_bot
+            </a>
+            <a href="https://t.me/eapxy" class="contact-btn" target="_blank">
+                <img src="https://img.icons8.com/?size=100&id=59753&format=png&color=ffffff" width="24" height="24">
+                @eapxy
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        body.setAttribute('data-theme', savedTheme);
+        updateIcons(savedTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcons(newTheme);
+        });
+        
+        function updateIcons(theme) {
+            if (theme === 'dark') {
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.add('hidden');
+            }
+        }
+        
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                body.setAttribute('data-theme', newTheme);
+                updateIcons(newTheme);
+            }
+        });
+    </script>
+</body>
+</html>
